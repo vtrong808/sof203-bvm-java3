@@ -3,7 +3,11 @@ body {
     background-color: #1e2a35;
     color: white;
     display: flex;
-    justify-content: center;
+
+    /* ✅ THAY ĐỔI TẠI ĐÂY */
+    flex-direction: column;  /* Xếp các mục theo cột (từ trên xuống) */
+    align-items: center;     /* Căn giữa các mục theo chiều ngang */
+
     padding: 40px;
 }
 
@@ -20,13 +24,9 @@ h2 {
     margin-bottom: 10px;
 }
 
-input, select {
-    width: 100%;
-    margin: 5px 0;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-}
+/* ❌ ĐÃ XÓA "input, select { ... }"
+  Thay bằng quy tắc bên dưới để không ảnh hưởng radio button
+*/
 
 .role-group {
     margin-top: 10px;
@@ -96,6 +96,7 @@ select {
     padding: 10px;
     border: none;
     border-radius: 5px;
+    box-sizing: border-box; /* Thêm dòng này để padding không làm vỡ layout */
 }
 
 /* Reset lại style cho radio button để chúng có kích thước tự động

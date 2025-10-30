@@ -90,13 +90,16 @@ public class UserDAO {
         return null;
     }
 
-    // SEARCH theo fullname
-    public List<User> searchByName(String name) throws SQLException {
+    // SEARCH theo fullname HOẶC email
+    public List<User> searchByKeyword(String keyword) throws SQLException {
         List<User> list = new ArrayList<>();
-        String sql = "SELECT * FROM Users WHERE Fullname LIKE ?";
-        // Sửa: Gọi DBContext.getConnection()
+        // ✅ Sửa SQL: Tìm cả Fullname VÀ Email
+        String sql = "SELECT * FROM Users WHERE Fullname LIKE ? OR Email LIKE ?";
+
         try (Connection c = DBContext.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setString(1, "%" + name + "%");
+            ps.setString(1, "%" + keyword + "%");
+            ps.setString(2, "%" + keyword + "%"); // ✅ Thêm tham số cho Email
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 String role = rs.getBoolean("Admin") ? "Admin" : "User";
@@ -110,5 +113,26 @@ public class UserDAO {
             }
         }
         return list;
+    }
+
+    // ✅ THÊM MỚI: Phương thức kiểm tra đăng nhập
+    public User checkLogin(String id, String password) throws SQLException {
+        String sql = "SELECT * FROM Users WHERE Id=? AND Password=?";
+        try (Connection c = DBContext.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setString(1, id);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String role = rs.getBoolean("Admin") ? "Admin" : "User";
+                return new User(
+                        rs.getString("Id"),
+                        rs.getString("Password"),
+                        rs.getString("Fullname"),
+                        rs.getString("Email"),
+                        role
+                );
+            }
+        }
+        return null; // Trả về null nếu login thất bại
     }
 }

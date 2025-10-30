@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+<div style="width: 800px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+    <h3 style="color: white; margin: 0;">
+        Welcome, <span style="color: #0dcaf0;">${sessionScope.user.fullname}</span>!
+    </h3>
+    <a href="logout" class="btn delete" style="text-decoration: none; margin: 0;">Logout</a>
+</div>
 <div class="crud-container">
     <h2>User Management - CRUD</h2>
     <p>Fill in the data below.</p>
@@ -45,6 +51,16 @@
                 <button type="reset" class="btn reset">Reset</button>
             </div>
         </form>
+
+        <hr style="border-color: #444; margin: 25px 0;">
+
+            <form action="user" method="get" style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <input type="hidden" name="action" value="search">
+                <input type="text" name="keyword" placeholder="Nhập Fullname hoặc Email để tìm..."
+                       value="${keyword}" style="flex-grow: 1; margin: 0;">
+                <button type="submit" class="btn create" style="margin: 0;">Tìm kiếm</button>
+                <a href="user" class="btn reset" style="margin: 0; text-decoration: none;">Reset</a>
+            </form>
 
     <table>
         <thead>

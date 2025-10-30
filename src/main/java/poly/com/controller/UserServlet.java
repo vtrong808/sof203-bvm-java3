@@ -51,7 +51,10 @@ public class UserServlet extends HttpServlet {
 
                 case "search":
                     String keyword = req.getParameter("keyword");
-                    req.setAttribute("userList", dao.searchByName(keyword));
+                    // ✅ Sửa tên phương thức được gọi
+                    req.setAttribute("userList", dao.searchByKeyword(keyword));
+                    // ✅ Giữ lại keyword trên ô tìm kiếm
+                    req.setAttribute("keyword", keyword);
                     break;
 
                 default: // list
