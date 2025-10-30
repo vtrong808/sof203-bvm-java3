@@ -1,7 +1,7 @@
-package com.poly.controller;
+package poly.com.controller;
 
-import com.poly.dao.UserDAO;
-import com.poly.model.User;
+import poly.com.dao.UserDAO;
+import poly.com.model.User;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -35,11 +35,18 @@ public class UserServlet extends HttpServlet {
                     String editID = req.getParameter("userID");
                     User editUser = dao.findById(editID);
                     req.setAttribute("editUser", editUser);
-                    break;
+
+                    // ✅ THÊM DÒNG NÀY:
+                    // Dù là edit, vẫn phải tải lại list để hiển thị table
+                    req.setAttribute("userList", dao.findAll());
+
+                    break; // Giữ break cũng được vì đã thêm dòng trên
 
                 case "remove":
                     String removeID = req.getParameter("userID");
                     dao.delete(removeID);
+                    // Sau khi xóa, tải lại list
+                    req.setAttribute("userList", dao.findAll());
                     break;
 
                 case "search":
@@ -47,7 +54,7 @@ public class UserServlet extends HttpServlet {
                     req.setAttribute("userList", dao.searchByName(keyword));
                     break;
 
-                default:
+                default: // list
                     req.setAttribute("userList", dao.findAll());
                     break;
             }

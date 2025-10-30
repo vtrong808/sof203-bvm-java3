@@ -78,3 +78,37 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+/* ================================== */
+/* ✅ BỔ SUNG ĐOẠN NÀY ĐỂ SỬA LỖI CSS */
+/* ================================== */
+
+/* Chỉ áp dụng width: 100% cho các input dạng text, password, email
+  mà KHÔNG áp dụng cho radio.
+*/
+input[type=text],
+input[type=password],
+input[type=email],
+input[type=search],
+select {
+    width: 100%;
+    margin: 5px 0;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+/* Reset lại style cho radio button để chúng có kích thước tự động
+  và căn chỉnh đúng.
+*/
+.role-group input[type=radio] {
+    width: auto; /* Quan trọng nhất: Hủy bỏ width 100% */
+    margin: 0 5px 0 0; /* Căn lề: trên 0, phải 5px, dưới 0, trái 0 */
+    vertical-align: middle; /* Căn radio button vào giữa dòng chữ */
+}
+
+.role-group label {
+    margin-right: 15px; /* Tăng khoảng cách giữa 2 lựa chọn */
+    display: inline-flex; /* Giúp căn chỉnh label và radio đẹp hơn */
+    align-items: center;
+}

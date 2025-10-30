@@ -1,4 +1,4 @@
-package com.poly.model;
+package poly.com.model;
 
 public class User {
     private String id;

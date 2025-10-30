@@ -1,4 +1,4 @@
-package com.poly.context;
+package poly.com.context;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

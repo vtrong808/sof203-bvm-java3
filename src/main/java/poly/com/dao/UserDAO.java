@@ -1,7 +1,7 @@
-package com.poly.dao;
+package poly.com.dao;
 
-import com.poly.context.DBContext; // Import lớp DBContext
-import com.poly.model.User;
+import poly.com.context.DBContext; // Import lớp DBContext
+import poly.com.model.User;
 import java.sql.*;
 import java.util.*;
 
