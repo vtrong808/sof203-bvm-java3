@@ -55,12 +55,14 @@
         <hr style="border-color: #444; margin: 25px 0;">
 
             <form action="user" method="get" style="display: flex; gap: 10px; margin-bottom: 20px;">
-                <input type="hidden" name="action" value="search">
-                <input type="text" name="keyword" placeholder="Nhập Fullname hoặc Email để tìm..."
-                       value="${keyword}" style="flex-grow: 1; margin: 0;">
-                <button type="submit" class="btn create" style="margin: 0;">Tìm kiếm</button>
-                <a href="user" class="btn reset" style="margin: 0; text-decoration: none;">Reset</a>
-            </form>
+                            <input type="hidden" name="action" value="search">
+
+                            <input type="text" name="keyword" placeholder="Nhập Fullname, Email hoặc Role (Admin/User) để tìm..."
+                                   value="${keyword}" style="flex-grow: 1; margin: 0;">
+
+                            <button type="submit" class="btn create" style="margin: 0;">Tìm kiếm</button>
+                            <a href="user" class="btn reset" style="margin: 0; text-decoration: none;">Reset</a>
+                        </form>
 
     <table>
         <thead>

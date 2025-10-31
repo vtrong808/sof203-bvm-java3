@@ -90,15 +90,33 @@ public class UserDAO {
         return null;
     }
 
-    // SEARCH theo fullname HOẶC email
+    // SEARCH theo fullname HOẶC email HOẶC role
     public List<User> searchByKeyword(String keyword) throws SQLException {
         List<User> list = new ArrayList<>();
-        // ✅ Sửa SQL: Tìm cả Fullname VÀ Email
-        String sql = "SELECT * FROM Users WHERE Fullname LIKE ? OR Email LIKE ?";
+
+        // ✅ Logic để chuyển đổi 'Admin' -> 1, 'User' -> 0
+        Boolean adminBit = null;
+        if ("admin".equalsIgnoreCase(keyword)) {
+            adminBit = true;
+        } else if ("user".equalsIgnoreCase(keyword)) {
+            adminBit = false;
+        }
+
+        // ✅ Cập nhật SQL để tìm cả 3 trường
+        String sql = "SELECT * FROM Users WHERE Fullname LIKE ? OR Email LIKE ? OR Admin = ?";
 
         try (Connection c = DBContext.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setString(1, "%" + keyword + "%");
-            ps.setString(2, "%" + keyword + "%"); // ✅ Thêm tham số cho Email
+
+            ps.setString(1, "%" + keyword + "%"); // Tìm theo Fullname
+            ps.setString(2, "%" + keyword + "%"); // Tìm theo Email
+
+            // ✅ Xử lý tham số thứ 3 (cho cột Admin)
+            if (adminBit != null) {
+                ps.setBoolean(3, adminBit); // Nếu tìm theo Role (Admin/User)
+            } else {
+                // Nếu không tìm theo role, set giá trị null để điều kiện Admin = ? luôn sai
+                ps.setNull(3, java.sql.Types.BIT);
+            }
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
